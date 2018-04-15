@@ -29,7 +29,7 @@
 \linespread{1.1}
 
 \pagestyle{fancy}
-\lhead{\hmwkGroup\ -\ \hmwkTitle}
+\lhead{\hmwkGroup\\\hmwkTitle}
 \rhead{\hmwkAuthorName}
 \lfoot{\lastxmark}
 \cfoot{\thepage}
@@ -68,6 +68,7 @@
 % assignment aren't sequential. See the last 3 problems of this template for an
 % example.
 %
+
 \newenvironment{homeworkProblem}[1][-1]{
     \ifnum#1>0
         \setcounter{homeworkProblemCounter}{#1}
@@ -94,7 +95,6 @@
 \newcommand{\hmwkGroup}{Übungsgruppe 16}
 \newcommand{\hmwkDueDate}{19. April 2018}
 \newcommand{\hmwkClass}{Datenstrukturen und Algorithmen}
-\newcommand{\hmwkClassInstructor}{Joost-Pieter Katoen}
 \newcommand{\hmwkAuthorName}{\textbf{Paul Orschau (381085)}}
 
 %
@@ -105,7 +105,6 @@
     \vspace{2in}
     \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
     \normalsize\vspace{0.1in}\small{Abgabe\ am\ \hmwkDueDate\ }\\
-    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}}
     \vspace{3in}
 }
 
@@ -133,6 +132,7 @@
 \newcommand{\loesung}{\textbf{\large Lösung}}
 
 
+
 %
 % Start of Document
 %
@@ -144,22 +144,22 @@
   \pagebreak
 
   \begin{homeworkProblem}[2]
-      Zeigen Sie, dass die folgenden Aussagen für beliebige \(n\in\mathbb{N}^{>0}\) gelten:
+      Zeigen Sie, dass die folgenden Aussagen für beliebige $n\in\mathbb{N}^{>0}$ gelten:
       
       \begin{enumerate}
-          \item \( \sum\limits_{k=1}^n k = \frac{n(n+1)}{2} \)
-          \item \( \sum\limits_{i=0}^n 2^i = 2^{n+1}-1 \)
+          \item $ \sum\limits_{k=1}^n k = \frac{n(n+1)}{2} $
+          \item $ \sum\limits_{i=0}^n 2^i = 2^{n+1}-1 $
       \end{enumerate}
 
       \loesung
       
       \textbf{Teil 1}
       
-      \( A(n) \Leftrightarrow \sum\limits_{k=1}^n k = \frac{n(n+1)}{2} \)
+      $A(n) \Leftrightarrow \sum\limits_{k=1}^n k = \frac{n(n+1)}{2}$
       
-      Beweis von \(A(n)\) per vollständiger Induktion.
+      Beweis von $A(n)$ per vollständiger Induktion.
 
-      Induktionsanfang: \(n_0=1\)
+      Induktionsanfang: $n_0=1$
 
       \[
           \begin{split}
@@ -167,7 +167,7 @@
           \end{split}
       \]
 
-      Induktionsvoraussetzung: Sei \(n\in\mathbb{N}^{>0}\) beliebig, aber fest, und es gelte \(A(n)\).
+      Induktionsvoraussetzung: Sei $n\in\mathbb{N}^{>0}$ beliebig, aber fest, und es gelte $A(n)$.
       
       Induktionsschritt: \(n\rightarrow n+1\)
       
@@ -183,13 +183,15 @@
           \end{split}
       \]
 
+      Damit ist $A(n)$ für alle \(n\in\mathbb{N}^{>0}\) bewiesen. \qed
+
       \textbf{Teil 2}
       
-      \( A(n) \Leftrightarrow \sum\limits_{i=0}^n 2^i = 2^{n+1}-1 \)
+      $ A(n) \Leftrightarrow \sum\limits_{i=0}^n 2^i = 2^{n+1}-1 $
       
-      Beweis von \(A(n)\) per vollständiger Induktion.
+      Beweis von $A(n)$ per vollständiger Induktion.
 
-      Induktionsanfang: \(n_0=1\)
+      Induktionsanfang: $n_0=1$
 
       \[
           \begin{split}
@@ -201,10 +203,10 @@
               = 2^{1+1}-1
           \end{split}
       \]
-
-      Induktionsvoraussetzung: Sei \(n\in\mathbb{N}^{>0}\) beliebig, aber fest, und es gelte \(A(n)\).
       
-      Induktionsschritt: \(n\rightarrow n+1\)
+      Induktionsvoraussetzung: Sei \(n\in\mathbb{N}^{>0}\) beliebig, aber fest, und es gelte $A(n)$.
+      
+      Induktionsschritt: $n\rightarrow n+1$
       
       \[
           \begin{split}
@@ -216,6 +218,8 @@
               = 2^{n+2}-1
           \end{split}
       \]
+      
+      Damit ist $A(n)$ für alle $n\in\mathbb{N}^{>0}$ bewiesen. \qed
 
   \end{homeworkProblem}
 
@@ -241,15 +245,15 @@
 
       \textbf{Teil 1}
       
-      Falsch, denn \(>\) erfüllt die Anforderungen an $R$, es handelt sich aber nicht um die leere Relation.
+      Falsch, denn \(>\) erfüllt die Anforderungen an $R$, es handelt sich aber nicht um die leere Relation. \qed
       
       \textbf{Teil 2}
       
       Falsch, denn \(>\) ist nicht symmetrisch, da
-      $\exists x=1,y=2 \in X : (x>y)\not\Leftrightarrow(y>x) $
+      $\exists x=1,y=2 \in X : (x>y)\not\Leftrightarrow(y>x) $ \qed
       
       \textbf{Teil 3}
-          
+      
       Beweis durch Widerspruch.
       
       Seien $R$ und $X$ nun wieder beliebig.
@@ -261,7 +265,7 @@
       
       Dies widerspricht der Voraussetzung, dass $R$ irreflexiv ist!
       
-      Damit ist die Widerspruchsannahme falsch und somit gezeigt, dass $R$ anti-symmetrisch sein muss.
+      Damit ist die Widerspruchsannahme falsch und somit gezeigt, dass $R$ anti-symmetrisch sein muss. \qed
           
   \end{homeworkProblem}
 
