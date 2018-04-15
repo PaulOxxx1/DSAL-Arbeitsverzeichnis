@@ -1,0 +1,307 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\renewcommand{\thispagestyle}[1]{} % damit Titelseite Kopfzeile bekommt
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings}
+\lstset{language=C++, numbers=left, frame=single,}
+\usepackage[utf8]{inputenc}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkGroup\ -\ \hmwkTitle}
+\rhead{\hmwkAuthorName}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Aufgabe \arabic{#1} wird auf nächster Seite fortgesetzt\ldots}\nobreak{}
+    \nobreak\extramarks{Aufgabe \arabic{#1} (fortgesetzt)}{Aufgabe \arabic{#1} wird auf nächster Seite fortgesetzt\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Aufgabe \arabic{#1} (fortgesetzt)}{Aufgabe \arabic{#1} wird auf nächster Seite fortgesetzt\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Aufgabe \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Aufgabe \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Aufgabe \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\date{15.04.2018}
+\newcommand{\hmwkTitle}{Übungsblatt\ \#1}
+\newcommand{\hmwkGroup}{Übungsgruppe 16}
+\newcommand{\hmwkDueDate}{19. April 2018}
+\newcommand{\hmwkClass}{Datenstrukturen und Algorithmen}
+\newcommand{\hmwkClassInstructor}{Joost-Pieter Katoen}
+\newcommand{\hmwkAuthorName}{\textbf{Paul Orschau (381085)}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Abgabe\ am\ \hmwkDueDate\ }\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\loesung}{\textbf{\large Lösung}}
+
+
+%
+% Start of Document
+%
+
+\begin{document}
+
+  \maketitle
+
+  \pagebreak
+
+  \begin{homeworkProblem}[2]
+      Zeigen Sie, dass die folgenden Aussagen für beliebige \(n\in\mathbb{N}^{>0}\) gelten:
+      
+      \begin{enumerate}
+          \item \( \sum\limits_{k=1}^n k = \frac{n(n+1)}{2} \)
+          \item \( \sum\limits_{i=0}^n 2^i = 2^{n+1}-1 \)
+      \end{enumerate}
+
+      \loesung
+      
+      \textbf{Teil 1}
+      
+      \( A(n) \Leftrightarrow \sum\limits_{k=1}^n k = \frac{n(n+1)}{2} \)
+      
+      Beweis von \(A(n)\) per vollständiger Induktion.
+
+      Induktionsanfang: \(n_0=1\)
+
+      \[
+          \begin{split}
+              A(1) \Leftrightarrow \sum\limits_{k=1}^1 k = 1 = \frac{2}{2} = \frac{1(1+1)}{2}
+          \end{split}
+      \]
+
+      Induktionsvoraussetzung: Sei \(n\in\mathbb{N}^{>0}\) beliebig, aber fest, und es gelte \(A(n)\).
+      
+      Induktionsschritt: \(n\rightarrow n+1\)
+      
+      \[
+          \begin{split}
+              A(n+1) \Leftrightarrow
+              \sum\limits_{k=1}^{n+1} k
+              = \sum\limits_{k=1}^n k + (n+1)
+              \stackrel{(I.V.)}{=} \frac{n(n+1)}{2} + (n+1)
+              = \frac{n(n+1)+2n+2}{2}
+              = \frac{n^2+3n+2}{2}
+              = \frac{(n+1)(n+2))}{2}
+          \end{split}
+      \]
+
+      \textbf{Teil 2}
+      
+      \( A(n) \Leftrightarrow \sum\limits_{i=0}^n 2^i = 2^{n+1}-1 \)
+      
+      Beweis von \(A(n)\) per vollständiger Induktion.
+
+      Induktionsanfang: \(n_0=1\)
+
+      \[
+          \begin{split}
+              A(1) \Leftrightarrow \sum\limits_{i=0}^1 2^i
+              = 1+2
+              = 3
+              = 4-1
+              = 2^2-1
+              = 2^{1+1}-1
+          \end{split}
+      \]
+
+      Induktionsvoraussetzung: Sei \(n\in\mathbb{N}^{>0}\) beliebig, aber fest, und es gelte \(A(n)\).
+      
+      Induktionsschritt: \(n\rightarrow n+1\)
+      
+      \[
+          \begin{split}
+              A(n+1) \Leftrightarrow
+              \sum\limits_{i=0}^{n+1} 2^i
+              = \sum\limits_{i=0}^{n} 2^i + 2^{n+1}
+              \stackrel{(I.V.)}{=} (2^{n+1}-1) + 2^{n+1}
+              = 2*(2^{n+1})-1
+              = 2^{n+2}-1
+          \end{split}
+      \]
+
+  \end{homeworkProblem}
+
+  \pagebreak
+
+  \begin{homeworkProblem}
+      Sei \(R\) eine beliebige irreflexive und transitive Relation über einer endlichen Menge \(X\).
+      Zeigen oder widerlegen Sie folgende Aussagen immer gelten:
+      \begin{enumerate}
+        \item \(R\) ist die leere Relation.
+        \item \(R\) ist symmetrisch.
+        \item \(R\) ist anti-symmetrisch.
+      \end{enumerate}
+      
+      \loesung
+      
+      $R \text{ irreflexiv} \Leftrightarrow \forall x \in X : \neg(x R x)$
+      
+      $R \text{ transitiv} \Leftrightarrow \forall x,y,z \in X : (xRy)\wedge(yRz)\implies(xRz)$
+      
+      Nehme als Beispiel für eine irreflexive und transitive Relation die "Größer als" Relation \(>\)
+      und als Beispiel für eine endliche Menge $X=\{1,2\}$.
+
+      \textbf{Teil 1}
+      
+      Falsch, denn \(>\) erfüllt die Anforderungen an $R$, es handelt sich aber nicht um die leere Relation.
+      
+      \textbf{Teil 2}
+      
+      Falsch, denn \(>\) ist nicht symmetrisch, da
+      $\exists x=1,y=2 \in X : (x>y)\not\Leftrightarrow(y>x) $
+      
+      \textbf{Teil 3}
+          
+      Beweis durch Widerspruch.
+      
+      Seien $R$ und $X$ nun wieder beliebig.
+      
+      Widerspruchsannahme: $R$ ist nicht anti-symmetrisch
+      
+      $\Rightarrow \exists x,y \in X : (xRy)\wedge(yRx)\wedge(x\not=y)
+      \stackrel{R\text{ transitiv}}{\Rightarrow} xRx $
+      
+      Dies widerspricht der Voraussetzung, dass $R$ irreflexiv ist!
+      
+      Damit ist die Widerspruchsannahme falsch und somit gezeigt, dass $R$ anti-symmetrisch sein muss.
+          
+  \end{homeworkProblem}
+
+  \pagebreak
+
+  \begin{homeworkProblem}
+    
+    Gegeben sei eine Liste $L$ der Länge $n>2$, mit natürlichen Zahlen als Eintrag.
+    \begin{itemize}
+      \item $L$.first beschreibt den ersten Eintrag.
+      \item $L$.last beschreibt den letzten Eintrag.
+      \item Jeder Eintrag der Liste enthält eine Referenz auf den vorherigen Eintrag, eine Referenz auf den nächsten Eintrag und den Wert des Eintrags.
+    \end{itemize}
+    Schreiben Sie einen Algorithmus, der die zweitgrößte Zahl in der Liste bestimmt, unter Beachtung der folgenden
+    Einschränkung:
+    \begin{enumerate}
+      \item Der Algorithmus soll iterativ sein (keine Rekursion erlaubt).
+      \item Der Algorithmus soll rekursiv sein (keine Schleifen erlaubt).
+    \end{enumerate}
+    
+    \loesung
+
+    Die Lösungen sind in Pseudo-code geschrieben.
+
+    Die Idee besteht darin, die Liste zunächst komplett zu sortieren.
+
+    \textbf{Teil 1}
+
+    \lstinputlisting{Code/4_1_Pseudo.cpp}
+    
+    Nun enthält secondGreatest die geforderte Referenz auf die zweitgrößte Zahl in der Liste.
+    
+    \pagebreak
+    
+    \textbf{Teil 2}
+
+    \lstinputlisting{Code/4_2_Pseudo.cpp}
+    
+    Nun enthält secondGreatest die geforderte Referenz auf die zweitgrößte Zahl in der Liste.
+
+  \end{homeworkProblem}
+
+\end{document}
