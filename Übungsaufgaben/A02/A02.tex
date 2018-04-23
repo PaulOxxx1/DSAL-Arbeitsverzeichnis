@@ -1,0 +1,250 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\renewcommand{\thispagestyle}[1]{} % damit Titelseite Kopfzeile bekommt
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings}
+\lstset{language=C++, numbers=left, frame=single,}
+\usepackage[utf8]{inputenc}
+\usepackage{paralist}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkGroup\\\hmwkTitle}
+\rhead{\hmwkAuthorName}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Aufgabe \arabic{#1} wird auf nächster Seite fortgesetzt\ldots}\nobreak{}
+    \nobreak\extramarks{Aufgabe \arabic{#1} (fortgesetzt)}{Aufgabe \arabic{#1} wird auf nächster Seite fortgesetzt\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Aufgabe \arabic{#1} (fortgesetzt)}{Aufgabe \arabic{#1} wird auf nächster Seite fortgesetzt\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Aufgabe \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Aufgabe \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Aufgabe \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\date{22.04.2018}
+\newcommand{\hmwkTitle}{Übungsblatt\ \#2}
+\newcommand{\hmwkGroup}{Übungsgruppe 16}
+\newcommand{\hmwkDueDate}{19. April 2018}
+\newcommand{\hmwkClass}{Datenstrukturen und Algorithmen}
+\newcommand{\hmwkAuthorName}{\textbf{Finn Hess (378104), Jan Knichel (??????), Paul Orschau (381085)}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Abgabe\ am\ \hmwkDueDate\ }\\
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\loesung}{\textbf{\large Lösung}}
+
+
+
+%
+% Start of Document
+%
+
+\begin{document}
+
+  \maketitle
+
+  \pagebreak
+
+  \begin{homeworkProblem}
+      
+      Wir definieren die Quasiordnung $\sqsubseteq$ auf Funktionen als
+      
+      $ f \sqsubseteq g \Leftrightarrow f \in \mathcal O(g)$.
+      
+      \begin{enumerate}[a)]
+          \item Beweisen Sie, dass $\sqsubseteq$ eine Quasiordnung ist, das heißt dass $\sqsubseteq$ reflexiv und transitiv ist.
+          \item Sortieren Sie einige Funktionen in aufsteigender Reihenfolge bezüglich der Quasiordnung $\sqsubseteq$.
+      \end{enumerate}
+
+      \loesung
+      
+      \textbf{Teil a)}
+      
+      \textbf{Teil b)}
+      
+  \end{homeworkProblem}
+
+  \pagebreak
+
+  \begin{homeworkProblem}
+      Beweisen oder wiederlegen Sie folgende Aussagen:
+      
+      \begin{enumerate}[a)]
+        \item $\frac{1}{4}n^3-7n+17 \in \mathcal O(n^3)$
+        \item $n^4 \in \mathcal O(2n^4+3n^2+42)$
+        \item $\log(n) \in \mathcal O(n)$
+        \item $\forall \epsilon>0: \log(n) \in \mathcal O(n^\epsilon)$
+        \item $a^n \in \Theta(b^n)$, für zwei beliebige Konstanten $a,b>1$
+      \end{enumerate}
+      
+      \loesung
+      
+      \textbf{Teil a)}
+                      
+      \textbf{Teil b)}
+                      
+      \textbf{Teil c)}
+                      
+      \textbf{Teil d)}
+                      
+      \textbf{Teil e)}
+                      
+  \end{homeworkProblem}
+
+  \pagebreak
+
+  \begin{homeworkProblem}
+
+    \begin{enumerate}[a)]
+      \item Zeigen oder wiederlegen Sie:
+      \begin{center}
+        $o(g(n)) \cap \Theta(g(n)) = \emptyset$
+      \end{center}
+      \item Zeigen oder widerlegen Sie:
+      \begin{center}
+        $f(n) \in \Omega(g(n)) \land f(n) \in \mathcal O(h(n)) \implies g \in \Theta(h(n))$
+      \end{center}    
+    \end{enumerate}
+
+    \loesung
+    
+    \textbf{Teil a)}
+
+    \textbf{Teil b)}
+
+  \end{homeworkProblem}
+
+  \pagebreak
+
+  \begin{homeworkProblem}
+    
+    Gegeben sei ein Algorithmus, der für ein Array von Booleans überprüft, ob alle Einträge wahr sind:
+    
+    \lstinputlisting{Code/4_Example.cpp}
+    
+    Bei Betrachtung der Laufzeit wird angenommen, dass Vergleiche (z.B. $x<y$ oder $b==0$) jeweils eine Zeiteinheit benötigen. Die Laufzeit aller anderen Operationen wird vernachlässigt.
+    
+    Sei $n$ die Länge des Arrays $E$.
+    
+    \begin{enumerate}[a)]
+      \item Bestimmen Sie in Abhängigkeit von $n$ die Best-case Laufzeit $B(n)$.
+      \item Bestimmen Sie in Abhängigkeit von $n$ die Worst-case Laufzeit $W(n)$.
+      \item Bestimmen Sie in Abhängigkeit von $n$ die Average-case Laufzeit $A(n)$. Hierzu nehmen wir eine uniforme Verteilung der möglichen Eingaben $D_n$ an, d.h. jede beliebige Eingabe $E \in D_n$ tritt mit Wahrscheinlichkeit $1/|D_n|$ auf.
+      \item Geben Sie einen äquivalenten Algorithmus an, dessen Average-case Laufzeit ab einer gewissen Eingabelänge kleiner ist. Hierzu nehmen wir wieder eine uniforme Verteilung der möglichen Eingaben an. Begründen Sie Ihre Antwort kurz. Sie müssen nicht die Average-case Laufzeit ihres Algorithmus berechnen.
+      \item Gibt es einen äquivaltenen Algorithmus, dessen Worst-case Laufzeit in $o(n)$ liegt? Begründen Sie ihre Antwort.
+    \end{enumerate}
+    
+    \loesung
+    
+    \textbf{Teil a)}
+    
+    \textbf{Teil b)}
+    
+    \textbf{Teil c)}
+    
+    \textbf{Teil d)}
+    
+    \textbf{Teil e)}
+    
+  \end{homeworkProblem}
+
+\end{document}
