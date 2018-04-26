@@ -94,9 +94,9 @@
 \date{22.04.2018}
 \newcommand{\hmwkTitle}{Übungsblatt\ \#2}
 \newcommand{\hmwkGroup}{Übungsgruppe 16}
-\newcommand{\hmwkDueDate}{19. April 2018}
+\newcommand{\hmwkDueDate}{26. April 2018}
 \newcommand{\hmwkClass}{Datenstrukturen und Algorithmen}
-\newcommand{\hmwkAuthorName}{\textbf{Finn Hess (378104), Jan Knichel (??????), Paul Orschau (381085)}}
+\newcommand{\hmwkAuthorName}{\textbf{Finn Hess (378104), Jan Knichel (377779), Paul Orschau (381085)}}
 
 %
 % Title Page
@@ -159,7 +159,60 @@
       
       \textbf{Teil a)}
       
+      $\sqsubseteq$ ist reflexiv, denn $\forall f$ gilt:
+      
+      $f \sqsubseteq f
+      \Leftrightarrow f \in \mathcal O(f)
+      \Leftrightarrow \limsup\limits_{n\rightarrow\infty} \frac{f(n)}{f(n)} = 1 < \infty $ \qed
+      
+      $\sqsubseteq$ ist transitiv, denn $\forall f,g,h$ mit $f \sqsubseteq g$ und $g \sqsubseteq h$ gilt:
+      
+      $f \sqsubseteq h
+      \Leftrightarrow \limsup\limits_{n\rightarrow\infty}  \frac{f(n)}{h(n)}
+      = \limsup\limits_{n\rightarrow\infty} [\frac{f(n)}{g(n)}*\frac{g(n)}{h(n)}]
+      \leq \limsup\limits_{n\rightarrow\infty} \frac{f(n)}{g(n)} * \limsup\limits_{n\rightarrow\infty} \frac{g(n)}{h(n)}
+      \stackrel{{f \sqsubseteq g}\atop{g \sqsubseteq h}}{=} c_1 * c_2 < \infty $ \qed
+      
       \textbf{Teil b)}
+      
+      $ 0
+      \sqsubseteq 4
+      \sqsubseteq 2^{9000}
+      \sqsubseteq \log{n}
+      \stackrel{\text{1)}}{\sqsubseteq} n\log{n}
+      \stackrel{\text{2)}}{\sqsubseteq} n\sqrt{n}
+      \stackrel{\text{3)}}{\sqsubseteq} n^{2}
+      \stackrel{\text{4)}}{\sqsubseteq} \sum\limits_{i=0}^{n} \frac{14i^2}{1+i}
+      \sqsubseteq n^{2}\log{n}
+      \sqsubseteq n^{3} 
+      \sqsubseteq \frac{n^3}{2} 
+      \sqsubseteq 2^{n} 
+      \sqsubseteq n! 
+      \sqsubseteq n^{n} $
+      
+      \begin{enumerate}
+      \item $ \limsup\limits_{n\rightarrow\infty} \frac{\log{n}}{n\log{n}}
+            \stackrel{\text{l'Hopital}}{=} \limsup\limits_{n\rightarrow\infty} \frac{\frac{1}{n}}{n*\frac{1}{n}+1*\log{n}}
+            = \limsup\limits_{n\rightarrow\infty} \frac{1}{n+n*\log{n}} = 0 < \infty $ \qed
+      
+      \item $ \limsup\limits_{n\rightarrow\infty} \frac{n\log{n}}{n\sqrt{n}}
+            = \limsup\limits_{n\rightarrow\infty} \frac{ \log{n}}{ \sqrt{n}}
+            \stackrel{\text{l'Hopital}}{=} \limsup\limits_{n\rightarrow\infty} \frac{\frac{1}{n}}{\frac{1}{2\sqrt{n}}}
+            = \limsup\limits_{n\rightarrow\infty} \frac{2\sqrt{n}}{n}
+            = \limsup\limits_{n\rightarrow\infty} \frac{2}{\sqrt{n}} = 0 < \infty $ \qed 
+
+      \item $ \limsup\limits_{n\rightarrow\infty} \frac{n\sqrt{n}}{n^2}
+            = \limsup\limits_{n\rightarrow\infty} \frac{\sqrt{n}}{n}
+            = \limsup\limits_{n\rightarrow\infty} \frac{1}{\sqrt{n}} = 0 < \infty $ \qed 
+             
+      \item $ \limsup\limits_{n\rightarrow\infty} \frac{n^2}{\sum\limits_{i=0}^{n} \frac{14i^2}{1+i}}
+            = \limsup\limits_{n\rightarrow\infty} \frac{n^2}{14\sum\limits_{i=0}^{n} [i-1+\frac{1}{i+1}] }
+            = \frac{1}{14} * \limsup\limits_{n\rightarrow\infty} \frac{n^2}{\frac{n(n+1)}{2} -n +\sum\limits_{i=0}^{n} \frac{1}{i+1} }
+            = \frac{1}{14} * \limsup\limits_{n\rightarrow\infty} \frac{n^2}{\frac{n^2-n}{2} +\sum\limits_{i=0}^{n} \frac{1}{i+1} }
+            \\ \leq \frac{1}{7} * \limsup\limits_{n\rightarrow\infty} \frac{n^2}{n^2-n}
+            = \frac{1}{7} * \limsup\limits_{n\rightarrow\infty} \frac{1}{1-\frac{1}{n}} = \frac{1}{7} < \infty $ \qed 
+                     
+      \end{enumerate}
       
   \end{homeworkProblem}
 
@@ -173,20 +226,57 @@
         \item $n^4 \in \mathcal O(2n^4+3n^2+42)$
         \item $\log(n) \in \mathcal O(n)$
         \item $\forall \epsilon>0: \log(n) \in \mathcal O(n^\epsilon)$
-        \item $a^n \in \Theta(b^n)$, für zwei beliebige Konstanten $a,b>1$
+        \item $a^n \in \Theta(b^n)$ für zwei beliebige Konstanten $a,b>1$
       \end{enumerate}
       
       \loesung
       
       \textbf{Teil a)}
+      
+      Aussage wahr, da
+       
+      $ \limsup\limits_{n\rightarrow\infty} \frac{\frac{1}{4}n^3-7n+17}{n^3}
+      = \limsup\limits_{n\rightarrow\infty} [\frac{1}{4}-\frac{7}{n^2}+\frac{17}{n^3}]
+      = \frac{1}{4} < \infty $ \qed
                       
       \textbf{Teil b)}
+      
+      Aussage wahr, da
+       
+      $ \limsup\limits_{n\rightarrow\infty} \frac{n^4}{2n^4+3n^2+42}
+      = \limsup\limits_{n\rightarrow\infty} \frac{1}{2+\frac{3}{n^2}+\frac{42}{n^4}}
+      = \frac{1}{2} < \infty $ \qed
                       
       \textbf{Teil c)}
+      
+      Aussage wahr, da
+       
+      $ \limsup\limits_{n\rightarrow\infty} \frac{\log{n}}{n}
+      \stackrel{\text{l'Hopital}}{=} \limsup\limits_{n\rightarrow\infty} \frac{\frac{1}{n}}{1}
+      = \limsup\limits_{n\rightarrow\infty} \frac{1}{n} = 0 < \infty $ \qed
                       
       \textbf{Teil d)}
-                      
+      
+      Aussage wahr, da
+       
+      $ \limsup\limits_{n\rightarrow\infty} \frac{\log{n}}{n^{\epsilon}}
+      \stackrel{\text{l'Hopital}}{=} \limsup\limits_{n\rightarrow\infty} \frac{\frac{1}{n}}{\epsilon n^{\epsilon-1}}
+      = \limsup\limits_{n\rightarrow\infty} \frac{1}{\epsilon n^{\epsilon}}
+      \stackrel{(*)}{=} 0 < \infty $ \qed
+      
+      $(*)$ Wir zeigen Konvergenz gegen 0:
+      
+      $ \forall \epsilon>0 : \exists n_0(\epsilon) \in \mathbb N : |\frac{1}{an^a}| < \epsilon
+      \Leftrightarrow ... \Leftrightarrow \sqrt[a]{\frac{1}{a\epsilon}} < n $      
+      
       \textbf{Teil e)}
+      
+      Aussage falsch, seien z.B. $a=e^3$ und $b=e^2$, dann gilt
+           
+      $ \lim\limits_{n\rightarrow\infty} \frac{a^n}{b^n}
+      = \lim\limits_{n\rightarrow\infty} \frac{e^{3n}}{e^{2n}}
+      = \lim\limits_{n\rightarrow\infty} e^{3n-2n}
+      = \lim\limits_{n\rightarrow\infty} e^n = \infty $ \qed
                       
   \end{homeworkProblem}
 
@@ -208,8 +298,20 @@
     \loesung
     
     \textbf{Teil a)}
+    
+    Sei $ f(n)\in o(g(n)) $ beliebig. Das heißt es gilt $ \forall c>0, \exists n_0 $ mit $ \forall n\geq n_0 : 0 \leq f(n) < c*g(n) $.
+    
+    Nun zeigen wir, dass $f(n)$ nicht in $\Theta (g(n))$ liegen kann.
+    
+    $f(n) \in \Theta (g(n)) \Leftrightarrow \exists c_1,c_2>0, n_0 $ mit $ \forall n \geq n_0 : c_1*g(n) \leq f(n) \leq c_2*g(n) $.
+    
+    Da $f\in o(g(n))$ gibt es auch zu jedem $c_1$ ein $n_0$, so dass $f(n) < c_1*g(n)$.
+    
+    Daher kann kein $c_1$ existieren, so dass $c_1*g(n) \leq f(n)$ ab einem Index $n_0$ gilt. Somit kann dieses $f$ nicht in $\Theta (g(n))$ liegen. Da $f$ beliebig war, ist die Aussage ist gezeigt. \qed
 
     \textbf{Teil b)}
+    
+    Gegenbeispiel: Sei $f(n) = n$, $g(n) = 1$ und $h(n) = n^2$. Dann gilt zwar $f(n) \in \Omega(g(n)) \land f(n) \in \mathcal O(h(n)) $, allerdings nicht $g \in \Theta(h(n))$. \qed
 
   \end{homeworkProblem}
 
@@ -235,15 +337,57 @@
     
     \loesung
     
+    Zeilen im Code, welche Zeiteinheiten benötigen: \textbf{2, 7, 8, 10}.
+    
+    Falls das Array \textbf{leer} ist ($n=0$), hat der Algorithmus immer eine Laufzeit von 1 (nur Zeile 2).
+    
+    Das heißt $B(0)=W(0)=A(0)=1$.
+    
+    Falls das Array \textbf{höchstens n-1} "true"-Werte enthält, ist die Laufzeit stets
+    
+    $X(n,a) = \underbrace{1}_2
+            + \underbrace{(n+1)}_7
+            + \underbrace{n}_8
+            + \underbrace{a}_{10}
+            = 2n + 2 + a $
+          
+    wobei $a\in[0,n]$ der Anzahl von "true"-Werten im Array entspricht. Das liegt daran, dass der Algorithmus den ganzen Array abläuft ... statt bei dem ersten gefundenen "false"-Wert abzubrechen. Für jeden gefundenen "true"-Wert kommt ein weiterer Vergleich in Zeile 10 hinzu.
+    
+    Falls das Array \textbf{genau n} "true"-Werte enthält, wird Zeile 7 einmal weniger ausgeführt, da der Algorithmus bereits in Zeile 11 terminiert. Die Laufzeit entspricht dann 
+    
+    $X(n,n) = \underbrace{1}_2
+            + \underbrace{n}_7
+            + \underbrace{n}_8
+            + \underbrace{n}_{10}
+            = 3n + 1 $
+    
     \textbf{Teil a)}
+    
+    Best-case Laufzeit: $B(n) = X(n,0) = 2n + 2$
     
     \textbf{Teil b)}
     
+    Worst-case Laufzeit: $W(n) = X(n,n) = X(n,n-1) = 3n + 1$
+    
     \textbf{Teil c)}
     
+    Average-case Laufzeit: $A(n)
+    = \sum\limits_{I \in D_n} Pr(I)*t(I)
+    = \sum\limits_{I \in D_n} \frac{1}{|D_n|}*t(I)
+    = \frac{1}{2^n}\sum\limits_{I \in D_n}t(I)
+    = \frac{1}{2^n}\sum\limits_{i=0}^n {n \choose i}X(n,i)
+    = \frac{1}{2^n}[\sum\limits_{i=0}^{n-1} {n \choose i}X(n,i) + X(n,n)]
+    = \frac{1}{2^n}[\sum\limits_{i=0}^{n-1} {n \choose i}(2n+2+i) + (3n+1)] $
+
     \textbf{Teil d)}
     
+    \lstinputlisting{Code/4_Improved.cpp}
+
     \textbf{Teil e)}
+    
+    Einen äquivalenten Algorithmus, dessen Worst-case Laufzeit in $o(n)$ liegt, kann es nicht geben, denn im schlimmsten Fall muss der Algorithmus alle Werte des Arrays mindestens einmal überprüfen.
+    Der Algorithmus kann keine "Annahmen" über einzelne Werte machen, bzw. man kann nicht auf den Wert eines Eintrag des Arrays schließen, ohne ihn wirklich betrachtet zu haben.
+    Da das Array $n$ Werte hat, muss die Worst-case Laufzeit des besten Algorithmus in $\mathcal O(n)$ liegen!
     
   \end{homeworkProblem}
 
