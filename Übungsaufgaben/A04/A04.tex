@@ -1,0 +1,473 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{fancybox}
+\usepackage{extramarks}
+\renewcommand{\thispagestyle}[1]{} % damit Titelseite Kopfzeile bekommt
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings}
+\lstset{language=C++, numbers=left, frame=single,}
+\usepackage[utf8]{inputenc}
+\usepackage{paralist}
+\usepackage{tikz}
+\usepackage{multicol}
+\usepackage{mathtools}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkGroup\\\hmwkTitle}
+\rhead{\hmwkAuthorName}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Aufgabe \arabic{#1} wird auf nächster Seite fortgesetzt\ldots}\nobreak{}
+    \nobreak\extramarks{Aufgabe \arabic{#1} (fortgesetzt)}{Aufgabe \arabic{#1} wird auf nächster Seite fortgesetzt\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Aufgabe \arabic{#1} (fortgesetzt)}{Aufgabe \arabic{#1} wird auf nächster Seite fortgesetzt\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Aufgabe \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Aufgabe \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Aufgabe \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\date{4.5.2018}
+\newcommand{\hmwkTitle}{Übungsblatt\ \#4}
+\newcommand{\hmwkGroup}{Übungsgruppe 16}
+\newcommand{\hmwkDueDate}{9. Mai 2018}
+\newcommand{\hmwkClass}{Datenstrukturen und Algorithmen}
+\newcommand{\hmwkAuthorName}{\textbf{Finn Hess (378104), Jan Knichel (377779), Paul Orschau (381085)}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Abgabe\ am\ \hmwkDueDate\ }\\
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\loesung}{\textbf{\large Lösung}}
+
+% Parts
+\newcommand{\teil}[1]{\vspace{15pt}\textbf{Teil #1}}
+
+
+%
+% Start of Document
+%
+
+\begin{document}
+
+  \maketitle
+
+  \pagebreak
+
+  \begin{homeworkProblem}
+    
+    Durch Betrachtung des Algorithmus ist klar, dass $S(1)=1$ und $S(2)=1$ gelten müssen, denn für kleine $n$ endet der Algorithmus bereits im ersten Schleifendurchlauf in Zeile 7.
+    
+    Nun betrachten wir die Größe des undurchsuchten Arrays nach einem Schleifendurchlauf. Es gelten folgende Beziehungen (siehe Code):
+    
+    \texttt{lmid}$ = \ceil{\frac{2l+r}{3}}$
+    
+    \texttt{rmid}$ = \floor{\frac{l+2r}{3}}$
+    
+    Da das Array gedrittelt wird, ist die Größe des Arrays im nächsten Durchlauf entweder
+    
+    \begin{enumerate}
+      \item $\texttt{lmid}-l
+      =\ceil{\frac{2l+r}{3}}-l
+      =\ceil{\frac{r-l}{3}}
+      =\ceil{\frac{n-1}{3}}
+      \geq \frac{n-1}{3}$
+      \item $\texttt{rmid-lmid}
+      =\floor{\frac{l+2r}{3}}-\ceil{\frac{2l+r}{3}}
+      =\floor{\frac{2n-2}{3}}-\ceil{\frac{n-1}{3}}
+      \leq \frac{2n-2}{3}-\frac{n-1}{3}
+      = \frac{n-1}{3}$
+      \item $r-\texttt{rmid}
+      =r-\floor{\frac{l+2r}{3}}
+      =-(-r+\floor{\frac{l+2r}{3}})
+      =-\floor{\frac{l-r}{3}}
+      =-\floor{\frac{1-n}{3}}
+      =\ceil{\frac{n-1}{3}}
+      \geq \frac{n-1}{3}$
+    \end{enumerate}
+    
+    Wie man anhand der Abschätzungen sehen kann, sind Fall 1 und 3 stets gleich groß, während Fall 2 stets kleiner bzw gleichgroß ist. Daher müssen wir für die maximale Anzahl von Schleifendurchläufen nur Fall 1 betrachten!
+    
+    Die Rekursionsgleichung lautet also
+    
+    \begin{equation}
+      S(n) = 
+      \begin{cases}
+        0 &n=0 \\
+        1 &n=1 \\
+        1 &n=2 \\
+        1+S(\ceil{\frac{n-1}{3}}) &n>2
+      \end{cases}
+    \end{equation}
+    
+    Betrachten wir nun den Spezialfall $n=\frac{3^k-1}{2}$ mit $k>1$. Dann gilt
+    
+    \begin{equation}
+      S(\frac{3^k-1}{2}) = 1+S(\ceil{\frac{\frac{3^k-1}{2}-1}{3}})
+      = 1+S(\ceil{\frac{3^k-3}{6}})
+      = 1+S(\ceil{\frac{3^{k-1}-1}{2}})
+      = \dots
+      = k+S(\ceil{\frac{3^{0}-1}{2}})
+      = k
+    \end{equation}
+    
+    Wir vermuten also dass $S(n)=k$ gilt, falls gilt:
+    
+    \begin{equation}
+      \begin{split}
+        & \frac{3^{k-1}}{2} \leq n < \frac{3^k}{2} \\
+        \Leftrightarrow & 3^{k-1} \leq n < 3^k \\
+        \Leftrightarrow & k-1 \leq \log_3 (2n) < k
+      \end{split}
+    \end{equation}
+    
+    Damit erhalten wir als Lösung für $S(n)=\floor{\log_3 (2n)}+1$.
+    
+    Beweis per Induktion.
+    
+    Induktionsanfang: $S(1) = 1 = \floor{\log_3 (2*1)}+1 $ \checkmark
+    
+    Induktionsvoraussetzung: Die obige Gleichung stimmt für ein festes, aber beliebiges $n\in \mathbb N$ mit $n>1$.
+    
+    Induktionsschritt:
+    
+    \begin{equation}
+      \begin{aligned}
+        S(n) &= 1 + S(\ceil{\frac{n-1}{3}}) \\
+        &= 1 + \floor{\log_3 (2*\ceil{\frac{n-1}{3}})}+1 \\
+        &= 1 + \floor{\log_3 (2*\ceil{\frac{n-1}{3}})+\log_3 3} \\
+        &= 1 + \floor{\log_3 (6*\ceil{\frac{n-1}{3}})}
+      \end{aligned}
+    \end{equation}
+    
+    Fall $n$ durch 3 teilbar: $n=3k$
+    
+    \begin{equation}
+      \begin{aligned}
+        1 + \floor{\log_3 (6*\ceil{\frac{3k-1}{3}})}
+        &= 1 + \floor{\log_3 (6*\ceil{k-\frac{1}{3}})}  \\        
+        &= 1 + \floor{\log_3 (6*k)} \\
+        &= 1 + \floor{\log_3 (2n)} \checkmark  
+      \end{aligned}
+    \end{equation}
+
+    Fall $n-1$ durch 3 teilbar: $n-1=3k$
+    
+    \begin{equation}
+      \begin{aligned}
+        1 + \floor{\log_3 (6*\ceil{\frac{3k}{3}})} 
+        &= 1 + \floor{\log_3 (6*k)} \\
+        &= 1 + \floor{\log_3 (6*\frac{n-1}{3})} \\ 
+        &= 1 + \floor{\log_3 (2n-2)} \\  
+        &= 1 + \floor{\log_3 (2n)} \checkmark  
+      \end{aligned}
+    \end{equation}
+
+    Fall $n+1$ durch 3 teilbar: $n+1=3k$
+    
+    \begin{equation}
+      \begin{aligned}
+        1 + \floor{\log_3 (6*\ceil{\frac{3k-2}{3}})} 
+        &= 1 + \floor{\log_3 (6*\ceil{k-\frac{2}{3}})} \\          
+        &= 1 + \floor{\log_3 (6*k)}       \\
+        &= 1 + \floor{\log_3 (2n+2)}  \\
+        &= 1 + \floor{\log_3 (2n)} \checkmark  
+      \end{aligned}
+    \end{equation}
+    
+    Damit ist gezeigt, dass die obige Gleichung $S(n)=\floor{\log_3 (2n)}+1$ wirklich stimmt. \qed
+  \end{homeworkProblem}
+
+  \pagebreak
+
+  \begin{homeworkProblem}
+    
+    \teil{a)}
+    
+    Wenn das gesuchte Element genau am Anfang der Liste liegt, wird in jedem Schleifendurchlauf die \texttt{if}-Bedingung in Zeile 4 \textit{falsch} und die in Zeile 5 \textit{wahr} sein. Der Zeiger \texttt{right} wird in jedem Schritt der Schleife um 1 nach links verschoben, bis er schließlich auch auf 0 Zeigt. $(n-1)$-mal wird also verschoben, und die Schleifenbedingung wird noch ein weiteres Mal geprüft, wenn beide Zeiger auf das erste Element zeigen. Daher lautet die Worst-case Gleichung:
+    
+    \begin{equation}
+      W(n) = n
+    \end{equation}
+    
+    Da der Algorithmus quasi "symmetrisch" operiert, tritt der Worst-case auch ein, wenn das gesuchte Element ganz am Ende der Liste liegt. Der Algorithmus ließe sich verbessern, wenn er direkt abbrechen würde, sobald er das gesuchte Element findet.
+        
+    \teil{b)}
+    
+    Für den Best-case muss das gesuchte Element in der Mitte der Liste liegen. Dann werden bei jedem Schleifendurchlauf sowohl der rechte als auch der linke Zeiger um 1 verschoben, wodurch die Suche schneller beendet wird.
+
+    \textbf{Fall 1: n ungerade}
+    
+    In diesem Fall gibt es ein Element, was eindeutig in der Mitte liegt, das heißt die Anzahl der Elemente rechts und links vom gesuchten Element sind gleich, nämlich $\floor {\frac{n}{2}}$. Das heißt beide Zeiger müssen $\floor{\frac{n}{2}}-1$ \textit{Sprünge} machen, bevor sie auf die Nachbarelemente des gesuchten Elements zeigen. Nach einem weiteren Sprung zeigen beide auf das gesuchte Element. Nun muss die Schleifenbedingung noch ein weiteres Mal überprüft werden, bevor der Algorithmus fertig ist.
+
+    \textbf{Fall 2: n gerade}
+
+    In diesem Fall kann das gesuchte Element nicht genau in der Mitte der Liste liegen; dort liegen zwei Elemente, die dieselbe Laufzeit besitzen. Nach $\floor{\frac{n}{2}}-1$ \textit{Sprüngen} zeigt der rechte Zeiger auf das \textit{rechte} mittlere Element und der linke Zeiger auf das \textit{linke}. Je nachdem, welches der Elemente das gesuchte ist, muss der jeweils andere Zeiger einen weiteren Sprung machen, um auch auf das Element zu zeigen. Nun muss die Schleifenbedingung noch ein weiteres Mal überprüft werden, bevor der Algorithmus fertig ist.
+    
+    \begin{equation}
+      B(n) = \lfloor \frac{n}{2} \rfloor + 1
+    \end{equation}
+        
+    \teil{c)}
+    
+    Zunächst leiten wir die allgemeine Laufzeit dafür her, dass das gesuchte Element an der Stelle $0\leq i<n$ ist. Unabhängig von der Position des Elements muss Zeiger A, der weiter von $i$ entfernt ist als Zeiger B, mindestens die Hälfte der Liste durchqueren, also mindestens $\floor{\frac{n}{2}}$ Schritte machen. Im Best-case sind nun beide Zeiger bereits auf dem gesuchten Element, also wird nur ein weiterer Vergleich gebraucht. In allen anderen Cases muss Zeiger A aber weiter "wandern", bis er Zeiger B, der jetzt bereits auf $i$ steht, trifft. Die Anzahl der zusätzlichen Schritte hängt vom Abstand von $i$ zur Mitte der Liste ab, je weiter $i$ davon entfernt ist, desto länger die Laufzeit. Der Abstand zur Mitte ist $|\frac{n-1}{2}-i|$; rundet man diesen Abstand ab, so erhält man die Anzahl an zusätzlichen Sprüngen von Zeiger A. Damit ergibt sich folgende Gleichung für die Laufzeit:
+    
+    \begin{equation}
+      t(n,i) =
+      \underbrace{\floor{\frac{n}{2}}}_{\text{Bis zur Mitte der Liste}} +
+      \underbrace{\floor{|\frac{n-1}{2}-i|}}_{\text{Zusatzsprünge}} +
+      \underbrace{1}_{\text{letzter Vergleich}}
+    \end{equation}
+
+    Die Wahrscheinlichkeit, dass das gesuchte Element an der Stelle $i$ in der Liste auftaucht, ist immer $\frac{1}{n}$.
+
+    Allgemein ergibt sich für den Average Case:
+
+    \begin{equation}
+      \begin{aligned}
+        A(n)
+        &= \sum\limits_{I \in D_n} Pr(I)*t(I)\\
+        &= \sum\limits_{i = 0}^{n-1} [\frac{1}{n}*t(n,i)]\\
+        &= \frac{1}{n} \sum\limits_{i = 0}^{n-1} [\floor{\frac{n}{2}}+\floor{|\frac{n-1}{2}-i|}+1]\\
+      \end{aligned}
+    \end{equation}
+            
+  \end{homeworkProblem}
+
+  \pagebreak
+
+  \begin{homeworkProblem}
+
+    \teil{a)}
+    
+    Zeige, dass $(\mathbb T, \preceq)$ ein vollständiger Verband ist.
+    
+    \textbf{Reflexiv}
+    
+    Sei $A \in \mathbb T$ beliebig. Es gilt:
+    
+    \begin{equation}
+      \begin{aligned}
+        \forall n: A(n) &= A(n) \\
+        \Rightarrow \forall n: A(n) &\leq A(n) \\
+        \Leftrightarrow A &\preceq A       
+      \end{aligned}
+    \end{equation}
+
+    \textbf{Transitiv}
+    
+    Seien $A,B,C \in \mathbb T$ beliebig, so dass $A \preceq B \preceq C$ gilt. Dann gilt:
+    
+    \begin{equation}
+      \begin{aligned}
+        A &\preceq B \preceq C \\
+        \Rightarrow \forall n: A(n) &\leq B(n) \leq C(n) \\
+        \Rightarrow \forall n: A(n) &\leq C(n) \\
+        \Leftrightarrow A &\preceq C       
+      \end{aligned}
+    \end{equation}
+
+    \textbf{Anti-symmetrisch}
+    
+    Seien $A,B \in \mathbb T$ beliebig, so dass $A \preceq B$ und $B \preceq A$ gilt. Dann gilt:
+    
+    \begin{equation}
+      \begin{aligned}
+        A \preceq B &\land B \preceq A \\
+        \Rightarrow \forall n: A(n) \leq B(n) &\land B(n) \leq A(n) \\
+        \Rightarrow \forall n: A(n) &= B(n) \\
+        \Rightarrow \forall n: A(n) &\leq B(n) \\
+        \Rightarrow A &\preceq B    
+      \end{aligned}
+    \end{equation} \qed
+
+    \teil{b)}
+
+    Zeige, dass $\Phi$ monoton bezüglich $\preceq$ ist:
+    Es ist zu zeigen, dass gilt $S \preceq T \Rightarrow \Phi(S) \preceq \Phi(T)$:
+
+    \begin{equation}
+      \begin{aligned}
+        \Phi(S) \preceq \Phi(T) &\Leftrightarrow \forall n:& \Phi(S)(n) &\leq \Phi(T)(n)\\
+        &\Leftrightarrow \forall n:&
+        \begin{cases}
+          1, &\text{falls } n=0 \\
+          2*S(\floor{\frac{n}{2}})+n &\text{sonst}
+        \end{cases} 
+        &\leq
+        \begin{cases}
+          1, &\text{falls } n=0 \\
+          2*T(\floor{\frac{n}{2}})+n &\text{sonst}
+        \end{cases}\\
+        &\Leftarrow\forall n>0:& 2*S(\floor{\frac{n}{2}})+n &\leq 2*T(\floor{\frac{n}{2}})+n\\
+        &\Leftrightarrow\forall n>0:& S(\floor{\frac{n}{2}}) &\leq T(\floor{\frac{n}{2}})\\
+        &\Leftarrow\forall n:& S(n) &\leq T(n)\\
+        &\Leftrightarrow & S &\preceq T
+      \end{aligned}
+    \end{equation} \qed
+    
+  \end{homeworkProblem}
+  
+  \pagebreak
+  
+  \begin{homeworkProblem}
+    
+    \teil{a)}
+
+    Rekursionsbaum
+    
+    \vspace{4.5in}
+    Höhe: $\log_{16} n$
+    
+    Breite: $4^{\log_{16} n}$
+    
+    Summe in der $i$-ten Zeile: $\frac{n}{4^i}$
+    
+    Summe der Blätter: $4^{\log_{16} n} = n^{\log_{16} 4} = n^{\frac{1}{2}} = \sqrt{n}$
+    
+    \vspace{15pt}
+    Damit ergibt sich
+    
+    \begin{equation}
+      \begin{aligned}
+        T(n) &= \sum\limits_{i=0}^{\log_{16} n - 1} \frac{n}{4^i} + \sqrt{n} \\
+        &= n \sum\limits_{i=0}^{\log_{16} n - 1} (\frac{1}{4})^i + \sqrt{n} \\
+        &< n \sum\limits_{i=0}^{\infty} (\frac{1}{4})^i + \sqrt{n} \\
+        &< \frac{n}{1-\frac{1}{4}} + \sqrt{n} \\
+        &= \frac{4}{3}n + \sqrt{n} \in \mathcal O(n)\\
+      \end{aligned}
+    \end{equation}
+    
+    \teil{b)}
+    
+    Beweis durch Mastertheorem:
+    
+    $T(n)=4*T(\floor{\frac{n}{16}})+n$
+    
+    $b=4$
+    
+    $c=16$
+    
+    $\Rightarrow E=\log_{16} 4=\frac{1}{2}$
+    
+    $\Rightarrow n^E=\sqrt{n}$
+    
+    $\Rightarrow f(n)=n\in \Omega (n^{\frac{1}{2}+\epsilon}), \epsilon>0$
+    
+    \vspace{15pt}
+    Also sind wir im 3. Fall des Mastertheorems und müssen die Nebenbedingung prüfen.
+    
+    \begin{equation}
+      \begin{aligned}        
+        4*f(\frac{n}{16}) &\leq d*f(n) \\
+        4*\frac{n}{16} &\leq d*n \\
+        \frac{1}{4} &\leq d \\
+      \end{aligned}
+    \end{equation}
+    
+    Die Nebenbedingung gilt, da es ein $\frac{1}{4} \leq d < 1$ gibt.
+    
+    Damit gilt $T(n) \in \Theta (n)$. \qed
+    
+  \end{homeworkProblem}  
+  
+\end{document}
