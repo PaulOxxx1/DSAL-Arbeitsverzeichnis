@@ -175,8 +175,40 @@
 
   \begin{homeworkProblem}
     
+    \teil{a)}
+    
+    \begin{itemize}
+      \item \textbf{9} / 3 / 5 / 1 / 10 / 4 / 6
+      \item \textbf{3 / 9} / 5 / 1 / 10 / 4 / 6
+      \item \textbf{3 / 5 / 9} / 1 / 10 / 4 / 6
+      \item \textbf{1 / 3 / 5 / 9} / 10 / 4 / 6
+      \item \textbf{1 / 3 / 5 / 9 / 10} / 4 / 6
+      \item \textbf{1 / 3 / 4 / 5 / 9 / 10} / 6
+      \item \textbf{1 / 3 / 4 / 5 / 6 / 9 / 10}
+    \end{itemize}
 
+    \teil{b)}
+    
+    Lösung des Dutch Flag Problem:
 
+    \lstinputlisting{Code/4_Dutch.cpp}
+    
+    Der Algorithmus kann ein Array in 3 Kategorien sortieren.
+    Die Idee bei 5 verschiedenen Farben besteht darin, zunächst in die Kategorien "Blau", "Rot" und "Alles Andere" zu sortieren, und dann den Algorithmus ein weiteres Mal auf den Bereich "Alles Andere", in dem dann nur noch 3 verschiedene Farben sind, anzuwenden. Letzteres entsprich einfach dem Dutch National Flag Problem.
+    
+    Dazu muss der Algorithmus aber leicht abgewandelt werden. Er muss:
+    
+    \begin{itemize}
+      \item Die dritte Farbe darüber definieren, dass es weder die erste noch die zweite Farbe ist
+      \item Mit verschiedenen Farben, die als Eingabeparameter übergeben werden, arbeiten können
+      \item Die Größe des dritten Bereichs zurückliefern
+    \end{itemize}
+    
+    \pagebreak
+    
+    Hier ist die angepasste Lösung und die beschriebene Verwendung:
+    
+    \lstinputlisting{Code/4_UCI.cpp}
     
   \end{homeworkProblem}
   
