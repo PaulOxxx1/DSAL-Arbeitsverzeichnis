@@ -188,14 +188,65 @@
     
     \begin{equation}
       \begin{aligned}
-        T(n) &= 2*T(\frac{n}{4})+T(\frac{n}{2})+n
-        &= 
+        T(n) &= 2*T(\frac{n}{4})+T(\frac{n}{2})+n \\
+        &\stackrel{(IV)}{\leq} 2*(c*\frac{n}{4}\log\frac{n}{4})+(c*\frac{n}{2}\log\frac{n}{2})+n \\
+        &= (c*\frac{n}{2}\log\frac{n}{4})+(c*\frac{n}{2}\log\frac{n}{2})+n \\
+        &= c*\frac{n}{2}*(\log\frac{n}{4}+\log\frac{n}{2})+n \\
+        &= c*\frac{n}{2}*(2*\log{n}-3*\log{2})+n \\
+        &= c*n*\log{n}-c*\frac{3}{2}*n*\log{2}+n \\
+        &= c*n*\log{n}-n*\underbrace{(c*\frac{3}{2}*\log{2}-1)}_{>0} \\
+        &\leq c*n*\log{n}
+      \end{aligned}
+    \end{equation} \qed
+
+    \pagebreak
+    
+    \teil{b)}
+
+    $T(n) =
+    \begin{cases}
+      1 & 1 \leq n \leq 3 \\
+      T(n-1)+T(n-2)+T(n-3) & n>3
+    \end{cases}
+    \in \Omega (3^\frac{n}{3})$
+    
+    \textbf{Beweis}
+    
+    Behauptung:
+    
+    \begin{equation}
+      \exists c>0, n_0 \text{ mit } \forall n \geq n_0 : T(n) \geq c*3^{\frac{n}{3}}      
+    \end{equation}
+
+    Induktionsanfang: $n_0 = 4$
+    
+    \begin{equation}
+      \begin{aligned}
+        T(4) = T(3)+T(2)+T(1) = 1+1+1 = 3 &\geq c*3*3^{\frac{1}{3}} \\
+        \Leftrightarrow 1 &\geq c*3^{\frac{1}{3}} \\
+        \Leftrightarrow c &\leq \frac{1}{3^{\frac{1}{3}}} \approx 0,693.. \\
       \end{aligned}
     \end{equation}
 
-    \teil{b)}
+    Induktionsvoraussetzung:
+    
+    \begin{equation}
+      \begin{aligned}
+        \forall m < n: T(m) \geq c * 3^{\frac{n}{3}}
+      \end{aligned}
+    \end{equation}
 
-    $T(n) \in \Omega (3^\frac{n}{3})$
+    Induktionsschritt:
+    
+    \begin{equation}
+      \begin{aligned}
+        T(n) &= T(n-1)+T(n-2)+T(n-3) \\
+        &\stackrel{(IV)}{\geq} c*(3^{\frac{n-1}{3}}+3^{\frac{n-2}{3}}+3^{\frac{n-3}{3}}) \\
+        &=c*(3^{\frac{n}{3}-\frac{1}{3}}+3^{\frac{n}{3}-\frac{2}{3}}+3^{\frac{n}{3}-1}) \\
+        &=c*3^{\frac{n}{3}}*\underbrace{(3^{-\frac{1}{3}}+3^{-\frac{2}{3}}+3^{-1})}_{\approx 1,507..} \\
+        &\geq c*3^{\frac{n}{3}}
+      \end{aligned}
+    \end{equation} \qed
 
   \end{homeworkProblem}
   
@@ -214,6 +265,8 @@
         f(n) &= 2^n \in \Omega (n^{3+\epsilon}) \\
       \end{aligned}
     \end{equation}
+    
+    $f(n)$ wächst exponentiell, und damit auch echt schneller als jedes Polynom.
 
     3. Fall! Prüfe Randbedingung:
     
@@ -228,7 +281,7 @@
     
     Man sieht leicht, dass für ein festes $d<1$ die Bedingung für hinreichend große $n$ erfüllt ist.
     
-    Damit gilt $T(n) \in \Theta (f(n))$.
+    Damit gilt $T(n) \in \Theta (f(n))$. \qed
     
     \teil{b)}
 
@@ -242,9 +295,11 @@
       \end{aligned}
     \end{equation}
     
+    Vergleiche nur die größte Potenz von $n$.
+    
     2. Fall!
     
-    Damit gilt $T(n) \in \Theta (n^3 \log n)$.
+    Damit gilt $T(n) \in \Theta (n^3 \log n)$. \qed
 
     \teil{c)}
     
@@ -254,13 +309,124 @@
         b &= 27 \\
         c &= 3 \\
         \rightarrow n^E &= n^3 \\
-        f(n) &= n(n^2\log{n}+n) = n^3\log{n}+n^2 \in \Omega (n^{3+\epsilon})
+        f(n) &= n(n^2\log{n}+n) = n^3\log{n}+n^2
       \end{aligned}
     \end{equation}
 
+    Da $f(n)$ überproportional schneller als $n^E$ wächst, käme überhaupt nur der 3. Fall in Frage. Prüfe also $f(n) \in \Omega (n^{3+\epsilon})$ für ein beliebiges $\epsilon>0$ durch Bestimmung des Grenzwerts
+    
+    \begin{equation}
+      \begin{aligned}
+        \lim\limits_{n\rightarrow\infty} \frac{f(n)}{n^{E+\epsilon}}
+        &= \lim\limits_{n\rightarrow\infty} \frac{n^3\log{n}+n^2}{n^{3+\epsilon}} \\
+        &= \lim\limits_{n\rightarrow\infty} \frac{\log{n}+\frac{1}{n}}{n^\epsilon} \\
+        &= \lim\limits_{n\rightarrow\infty} \frac{\log{n}}{n^\epsilon} + \underbrace{\lim\limits_{n\rightarrow\infty} \frac{1}{n^{1+\epsilon}}}_{=0} \\
+        &= \lim\limits_{n\rightarrow\infty} \frac{\ln{n}}{\ln{2}*n^\epsilon} \\
+        &\stackrel{\text{l'Hopital}}{=} \lim\limits_{n\rightarrow\infty} \frac{1}{n*\ln{2}*\epsilon*n^{\epsilon-1}} \\
+        &= \lim\limits_{n\rightarrow\infty} \frac{1}{\ln{2}*\epsilon*n^{\epsilon}} = 0
+      \end{aligned}
+    \end{equation}
+    
+    Da der Grenzwert gleich 0 ist, gilt $f(n) \in o(n^{E+\epsilon})$ und somit $f(n)\not\in\Omega (n^{E+\epsilon})$. Also ist die Rekursionsgleichung für diese Gleichung nicht anwendbar.
+
     \teil{d)}
 
+    \begin{equation}
+      \begin{aligned}
+        T(n) &= 16*T(\frac{n}{4})+n(\log{n}+n) \\
+        b &= 16 \\
+        c &= 4 \\
+        \rightarrow n^E &= n^2 \\
+        f(n) &= n(\log{n}+n) = n^2+n\log{n}
+      \end{aligned}
+    \end{equation}
+
+    Da $f(n)$ überproportional schneller als $n^E$ wächst, käme überhaupt nur der 3. Fall in Frage. Prüfe also $f(n) \in \Omega (n^{2+\epsilon})$ für ein beliebiges $\epsilon>0$ durch Bestimmung des Grenzwerts
+    
+    \begin{equation}
+      \begin{aligned}
+        \lim\limits_{n\rightarrow\infty} \frac{f(n)}{n^{E+\epsilon}}
+        &= \lim\limits_{n\rightarrow\infty} \frac{n^2+n\log{n}}{n^{2+\epsilon}} \\
+        &= \lim\limits_{n\rightarrow\infty} \frac{1+\frac{\log{n}}{n}}{n^\epsilon} \\
+        &= \underbrace{\lim\limits_{n\rightarrow\infty} \frac{1}{n^\epsilon}}_{=0}
+        +\lim\limits_{n\rightarrow\infty} \frac{\frac{\log{n}}{n}}{n^\epsilon} \\
+        &= \lim\limits_{n\rightarrow\infty} \frac{\log{n}}{n^{1+\epsilon}} \\
+        &\stackrel{\text{l'Hopital}}{=} \lim\limits_{n\rightarrow\infty} \frac{1}{n*(\epsilon+1)*n^{\epsilon}} \\
+        &\stackrel{\text{l'Hopital}}{=} \lim\limits_{n\rightarrow\infty} \frac{1}{(\epsilon+1)*n^{\epsilon+1}} = 0 \\
+      \end{aligned}
+    \end{equation}
+    
+    Da der Grenzwert gleich 0 ist, gilt $f(n) \in o(n^{E+\epsilon})$ und somit $f(n)\not\in\Omega (n^{E+\epsilon})$. Also ist die Rekursionsgleichung für diese Gleichung nicht anwendbar.
+
+    \pagebreak
+
     \teil{e)}
+    
+    \begin{equation}
+      \begin{aligned}
+        T(n) &= T(\frac{n}{3}) + f(n) \\
+        b &= 1 \\
+        c &= 3 \\
+        \rightarrow n^E &= n^0 = 1 \\
+        f(n) &= 
+        \begin{cases}
+          3n+2^{3n} & n \in \{2^i|i\in \mathbb N\} \\
+          3n & \text{sonst}
+        \end{cases}
+      \end{aligned}
+    \end{equation}
+
+    Es gilt $f(n) \geq g(n) := 3n$, und da selbst $g(n) \in \Omega(\underbrace{n^{E+\frac{1}{2}}}_{\sqrt{n}})$ liegt, muss auch $f(n)$ darin liegen.
+    
+    3. Fall! Prüfe Randbedingung:
+    
+    \begin{equation}
+      \begin{aligned}
+        1*f(\frac{n}{3}) &\leq d*f(n) \\
+        \Leftrightarrow
+        \begin{cases}
+          n+2^{3n} & \frac{n}{3} \in \{2^i|i\in \mathbb N\} \\
+          n & \text{sonst}
+        \end{cases}
+        &\leq d*
+        \begin{cases}
+          3n+2^{3n} & n \in \{2^i|i\in \mathbb N\} \\
+          3n & \text{sonst}
+        \end{cases} \\
+      \end{aligned}
+    \end{equation}
+    
+    Man kann nun beliebig große $n$ konstruieren, die diese Ungleichung $\forall d < 1$ nicht erfüllen. Dazu setze man $n:=3*2^i$ für ein beliebig großes $i$.
+    
+    Für dieses $n$ gilt: $\frac{n}{3}\in\{2^i|i\in \mathbb N\}$ sowie $n\not\in\{2^i|i\in \mathbb N\}$, da Vielfache von 2 nie durch 3 teilbar sind (Primfaktorzerlegung), aber jedes $n$ durch 3 teilbar ist. Somit befinden wir uns für diese $n$ \textbf{immer} im "oberen" Fall der linken Seite und im "unteren" Fall der rechten Seite.
+    
+    \begin{equation}
+      \begin{aligned}
+        n+2^{3n} &\leq d*3n \\
+        \Leftrightarrow \frac{n+2^{3n}}{3n} &\leq d \\
+        \Rightarrow d &\geq \frac{1}{3}+\frac{2^{3n}}{3n} > \frac{2^{3n}}{3n} 
+        \stackrel{*}{\geq} \frac{2^{3n}}{2^{3n}} = 1 \\
+        \Rightarrow d &> 1
+      \end{aligned}
+    \end{equation}
+    
+    \begin{equation}
+      \tag{*}
+      n < 2^n \forall n \in \mathbb N
+    \end{equation}
+    
+    Beispiel: Sei $n=3*2^2=12$
+    
+    \begin{equation}
+      \begin{aligned}
+        1*f(\frac{12}{3}) = f(4) &\leq d*f(12) \\
+        \Leftrightarrow \underbrace{3*4+2^{3*4}}_{f(4)} &\leq d*\underbrace{3*12}_{f(12)} \\
+        \Leftrightarrow 4108 &\leq 36*d \\
+        \Leftrightarrow d &\geq \frac{4108}{36} \approx 114,11..
+      \end{aligned}
+    \end{equation}
+    
+    Damit ist das Mastertheorem nicht anwendbar.
 
   \end{homeworkProblem}
   
