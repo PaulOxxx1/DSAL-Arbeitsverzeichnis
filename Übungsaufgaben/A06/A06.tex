@@ -1,0 +1,227 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\renewcommand{\thispagestyle}[1]{} % damit Titelseite Kopfzeile bekommt
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings}
+\lstset{language=C++, numbers=left, frame=single,}
+\usepackage[utf8]{inputenc}
+\usepackage{paralist}
+\usepackage{tikz}
+\usepackage{multicol}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkGroup\\\hmwkTitle}
+\rhead{\hmwkAuthorName}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Aufgabe \arabic{#1} wird auf nächster Seite fortgesetzt\ldots}\nobreak{}
+    \nobreak\extramarks{Aufgabe \arabic{#1} (fortgesetzt)}{Aufgabe \arabic{#1} wird auf nächster Seite fortgesetzt\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Aufgabe \arabic{#1} (fortgesetzt)}{Aufgabe \arabic{#1} wird auf nächster Seite fortgesetzt\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Aufgabe \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Aufgabe \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Aufgabe \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\date{30.5.2018}
+\newcommand{\hmwkTitle}{Übungsblatt\ \#6}
+\newcommand{\hmwkGroup}{Übungsgruppe 16}
+\newcommand{\hmwkDueDate}{30. Mai 2018}
+\newcommand{\hmwkClass}{Datenstrukturen und Algorithmen}
+\newcommand{\hmwkAuthorName}{\textbf{Finn Hess (378104), Jan Knichel (377779), Paul Orschau (381085)}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Abgabe\ am\ \hmwkDueDate\ }\\
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\loesung}{\textbf{\large Lösung}}
+
+% Parts
+\newcommand{\teil}[1]{\vspace{15pt}\textbf{Teil #1}}
+
+
+%
+% Start of Document
+%
+
+\begin{document}
+
+  \maketitle
+
+  \pagebreak
+
+  \begin{homeworkProblem}
+    
+    \begin{itemize}
+      \item 9 / 0 / 6 / 2 / 5 / 1 / 4 / 8
+      \item 0 / 9 / 6 / 2 / 5 / 1 / 4 / 8
+      \item 0 / 9 / 2 / 6 / 5 / 1 / 4 / 8
+      \item 0 / 9 / 2 / 6 / 1 / 5 / 4 / 8
+      \item 0 / 9 / 2 / 6 / 1 / 5 / 4 / 8
+      \item 0 / 2 / 6 / 9 / 1 / 5 / 4 / 8
+      \item 0 / 2 / 6 / 9 / 1 / 4 / 5 / 8
+      \item 0 / 1 / 2 / 4 / 5 / 6 / 8 / 9
+    \end{itemize}
+    
+  \end{homeworkProblem}
+
+  \begin{homeworkProblem}
+    
+    \teil{a)}
+
+    \begin{itemize}
+      \item 9 / 2 / 9 / 6 / 5 / 1 / 0 / 7
+      \item 9 / 2 / 9 / 7 / 5 / 1 / 0 / 6
+      \item 9 / 7 / 9 / 2 / 5 / 1 / 0 / 6
+      \item 9 / 7 / 9 / 6 / 5 / 1 / 0 / 2
+      \item 2 / 7 / 9 / 6 / 5 / 1 / 0 / 9
+      \item 9 / 7 / 2 / 6 / 5 / 1 / 0 / 9
+      \item 0 / 7 / 2 / 6 / 5 / 1 / 9 / 9
+      \item 7 / 0 / 2 / 6 / 5 / 1 / 9 / 9
+      \item 7 / 6 / 2 / 0 / 5 / 1 / 9 / 9
+      \item 1 / 6 / 2 / 0 / 5 / 7 / 9 / 9
+      \item 6 / 1 / 2 / 0 / 5 / 7 / 9 / 9
+      \item 6 / 5 / 2 / 0 / 1 / 7 / 9 / 9
+      \item 1 / 5 / 2 / 0 / 6 / 7 / 9 / 9
+      \item 5 / 1 / 2 / 0 / 6 / 7 / 9 / 9
+      \item 0 / 1 / 2 / 5 / 6 / 7 / 9 / 9
+      \item 2 / 1 / 0 / 5 / 6 / 7 / 9 / 9
+      \item 0 / 1 / 2 / 5 / 6 / 7 / 9 / 9
+      \item 1 / 0 / 2 / 5 / 6 / 7 / 9 / 9
+      \item 0 / 1 / 2 / 5 / 6 / 7 / 9 / 9
+    \end{itemize}
+    
+  \end{homeworkProblem}
+
+  \begin{homeworkProblem}[3]
+    
+    \begin{itemize}
+      \item 6 / 4 / 4 / 9 / 3 / 2 / 7 / 5
+      \item 2 / 4 / 4 / 3 / \textbf{5} / 6 / 7 / 9
+      \item 2 / \textbf{3} / 4 / 4 / 5 / 6 / 7 / 9
+      \item 2 / 3 / 4 / \textbf{4} / 5 / 6 / 7 / 9
+      \item 2 / 3 / 4 / 4 / 5 / 6 / 7 / \textbf{9}
+      \item 2 / 3 / 4 / 4 / 5 / 6 / \textbf{7} / 9
+    \end{itemize}
+    
+  \end{homeworkProblem}
+
+  \begin{homeworkProblem}[5]
+    
+    \teil{a)}
+    
+    Insertionsort: Da dieser sehr effizient ist für kleine Arrays
+    
+    \teil{b)}
+    
+    Countingsort: Da dieser sehr effizient ist für eine geringe Anzahl an Schlüsseln
+    
+    \teil{c)}
+    
+    Heapsort: Da dieser $\mathcal{O}$(n*log(n)) für fast sortierte Eingaben hat
+
+    \teil{d)}
+
+    Mergesort: Da dieser Teilprobleme gleichmäßig verteilt und dann zusammenfügt
+
+  \end{homeworkProblem}
+  
+\end{document}
