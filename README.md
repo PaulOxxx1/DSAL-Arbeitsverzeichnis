@@ -7,4 +7,4 @@ Dieses Verzeichnis enthält:
 Hoffentlich helfen euch die Dateien weiter!
 
 Gruß
-Finn, ? und Paul
+Finn und Paul
