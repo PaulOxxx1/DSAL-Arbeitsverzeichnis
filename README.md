@@ -1,4 +1,4 @@
-# DASL-Arbeitsverzeichnis
+# DSAL-Arbeitsverzeichnis
 
 Dieses Verzeichnis enthält:
 
